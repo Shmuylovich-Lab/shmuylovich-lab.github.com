@@ -1,21 +1,35 @@
 # This is the default format. 
 # For more see: http://jekyllrb.com/docs/permalinks/
-permalink: /:categories/:year/:month/:day/:title 
+# permalink: /:categories/:year/:month/:day/:title 
+permalink: /:categories/:title 
 
-exclude: [".rvmrc", ".rbenv-version", "README.md", "Rakefile", "changelog.md"]
-highlighter: pygments
+exclude: [".rvmrc", ".rbenv-version", "README.md", "Rakefile", "changelog.md", ".sublime-project", ".sublime-workspace", "vendor"]
+highlighter: rouge
+
+markdown: kramdown
+
+repository: Shmuylovich-lab/shmuylovich-lab.github.io
 
 # Themes are encouraged to use these universal variables 
 # so be sure to set them if your theme uses them.
 #
-title : Jekyll Bootstrap
-tagline: Site Tagline
+title : Shmuylovich Lab
+tagline: Molecular basis of cellular sensing and responses
+institution:
+  url: https://wustl.edu/
+  name: Washington University in St. Louis
+department:
+  url: https://medicine.wustl.edu/
+  name: Washington University in St. Louis School of Medicine
+division: 
+  url: https://dermatology.wustl.edu/
+  name: Division of Dermatology
 author :
-  name : Name Lastname
-  email : blah@email.test
-  github : username
-  twitter : username
-  feedburner : feedname
+  name : Leo Shmuylovich
+  email : shmuylol@wustl.edu
+  github : leoshmu
+  twitter : leoshmu
+#  feedburner : feedname
 
 # The production_url is only used when full-domain names are needed
 # such as sitemap.txt 
@@ -25,9 +39,7 @@ author :
 # Else if you are pushing to username.github.io, replace with your username.
 # Finally if you are pushing to a GitHub project page, include the project name at the end.
 #
-production_url : http://username.github.io
-
-gems: ["jekyll-sitemap"]
+production_url : https://shmuylovich-lab.github.io/
 
 # All Jekyll-Bootstrap specific configurations are namespaced into this hash
 #
@@ -82,7 +94,7 @@ JB :
   # Set 'provider' to false to turn commenting off globally.
   #
   comments :
-    provider : disqus
+    provider : false
     disqus :
       short_name : jekyllbootstrap
     livefyre :
@@ -94,34 +106,51 @@ JB :
       num_posts: 5
       width: 580
       colorscheme: light
-    duoshuo :
-      short_name : jekyllbootstrap
    
   # Settings for analytics helper
   # Set 'provider' to the analytics provider you want to use.
   # Set 'provider' to false to turn analytics off globally.
-  #        
+  #
   analytics :
-    provider : google
-    gauges :
-        site_id : 'SITE ID'
+    provider : false
     google : 
-        tracking_id : 'UA-123-12'
+      tracking_id : 
     getclicky :
       site_id : 
     mixpanel :
-        token : '_MIXPANEL_TOKEN_'
+      token : 
     piwik :
-        baseURL : 'myserver.tld/piwik' # Piwik installation address (without protocol)
-        idsite : '1'                   # the id of the site on Piwik
+      baseURL : 
+      idsite : 
 
-  # Settings for sharing helper. 
-  # Sharing is for things like tweet, plusone, like, reddit buttons etc.
+  # Settings for sharing 
+  # Sharing is for things like tweet, plusone, hn upvotes, like, linkedin
+  # Add a tweet button    => provider : tweet
+  # Add a like button     => provider : like (you also need a facebook appid)
+  # Add a plus one button   => provider : plusone
+  # Add a HN button     => provider : hn
+  # Add them all (i.e. hn + tweet + plusone + like) => provider : all
   # Set 'provider' to the sharing provider you want to use.
   # Set 'provider' to false to turn sharing off globally.
   #
   sharing :
-    provider : false
+   provider : tweet
+   twitter :
+     size :
+     via :
+     count :
+   facebook :
+     appid : 123
+     layout : button_count
+     font :
+     faces : false
+     width : 90
+   googleplus :
+     size : medium
+     width :
+     annotation : bubble
+   linkedin :
+     counter : right      
     
   # Settings for all other include helpers can be defined by creating 
   # a hash with key named for the given helper. ex:
@@ -133,4 +162,8 @@ JB :
   # and include your custom code. Your custom file must be defined at:
   #   ./_includes/custom/[HELPER]
   # where [HELPER] is the name of the helper you are overriding.
+  
+# allow page redirection
+plugins_dir:
+  - jekyll-redirect-from
   

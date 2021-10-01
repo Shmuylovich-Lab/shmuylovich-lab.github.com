@@ -1,0 +1,46 @@
+---
+layout: default
+title: "Research"
+description: "Research projects in the lab"
+group: navigation
+navorder: 1
+---
+{% include JB/setup %}
+<div class="bigspacer"></div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="head">
+      
+    </div>
+    <div class="smallhead">
+      We have various collaborations and projects that interested students and staff can work on, and also welcome new ideas and directions from lab members. The main research theme in our lab is building imaging devices that can provide new insights into human disease. While our focus is skin disease, the technology we build will have general applicability to human health.
+    </div>
+  </div>        
+</div>
+
+<hr>
+{% for project in site.categories.projects %}
+<div class='row'>
+  <!--
+  <div class='row'>
+    <div class='col-md-12'>
+    <div class="media">
+      <a class="project-image" href="{{ project.url }}">
+        <img class="media-object" src="{{ project.image }}">
+      </a>
+    </div>
+  </div>
+  -->
+  <div class='row'>
+    <div class="col-md-4 paperbox">
+      <div class="smallhead media-heading"><a href="{{ project.url }}" class="off">{{ project.title }}</a></div>
+    </div>
+    <div class='col-md-8'>
+      {{ project.description }}
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+<div class="bigspacer"></div>

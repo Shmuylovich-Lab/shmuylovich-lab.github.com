@@ -8,8 +8,12 @@ CONFIG = {
   'version' => "0.3.0",
   'themes' => File.join(SOURCE, "_includes", "themes"),
   'layouts' => File.join(SOURCE, "_layouts"),
-  'posts' => File.join(SOURCE, "_posts"),
+  'posts' => File.join(SOURCE, "blog/_posts"),
   'post_ext' => "md",
+  'papers' => File.join(SOURCE, "papers/_posts"),
+  'paper_ext' => "md",
+  'protocols' => File.join(SOURCE, "protocols/_posts"),
+  'protocol_ext' => "md",
   'theme_package_version' => "0.1.0"
 }
 
@@ -22,7 +26,9 @@ module JB
       :themes => "_includes/themes",
       :theme_assets => "assets/themes",
       :theme_packages => "_theme_packages",
-      :posts => "_posts"
+      :posts => "_posts",
+      :papers => "papers/_posts",
+      :protocols => "protocols/_posts"
     }
     
     def self.base
@@ -40,14 +46,20 @@ module JB
   end #Path
 end #JB
 
-# Usage: rake post title="A Title" [date="2012-02-09"] [tags=[tag1,tag2]] [category="category"]
+# Usage: rake build
+desc "Build the site"
+task :build do
+  system "bundle exec jekyll build"
+end # task :build
+
+# Usage: rake post title="A Title" [date="2012-02-09"] [tags=[tag1,tag2]]
 desc "Begin a new post in #{CONFIG['posts']}"
 task :post do
   abort("rake aborted: '#{CONFIG['posts']}' directory not found.") unless FileTest.directory?(CONFIG['posts'])
   title = ENV["title"] || "new-post"
   tags = ENV["tags"] || "[]"
-  category = ENV["category"] || ""
-  category = "\"#{category.gsub(/-/,' ')}\"" if !category.empty?
+  #category = ENV["category"] || ""
+  #category = "\"#{category.gsub(/-/,' ')}\"" if !category.empty?
   slug = title.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
   begin
     date = (ENV['date'] ? Time.parse(ENV['date']) : Time.now).strftime('%Y-%m-%d')
@@ -66,16 +78,89 @@ task :post do
     post.puts "layout: post"
     post.puts "title: \"#{title.gsub(/-/,' ')}\""
     post.puts 'description: ""'
-    post.puts "category: #{category}"
+    post.puts "category: blog" # #{category}"
     post.puts "tags: #{tags}"
     post.puts "---"
     post.puts "{% include JB/setup %}"
   end
 end # task :post
 
+# Usage: rake paper title="Paper title" [date="2012-02-09"] [tags=[tag1,tag2]]
+desc "Post a new paper in #{CONFIG['papers']}"
+task :paper do
+  abort("rake aborted: '#{CONFIG['papers']}' directory not found.") unless FileTest.directory?(CONFIG['papers'])
+  title = ENV["title"] || "new-post"
+  tags = ENV["tags"] || "[]"
+  #category = ENV["category"] || ""
+  #category = "\"#{category.gsub(/-/,' ')}\"" if !category.empty?
+  slug = title.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
+  begin
+    date = (ENV['date'] ? Time.parse(ENV['date']) : Time.now).strftime('%Y-%m-%d')
+  rescue => e
+    puts "Error - date format must be YYYY-MM-DD, please check you typed it correctly!"
+    exit -1
+  end
+  filename = File.join(CONFIG['papers'], "#{date}-#{slug}.#{CONFIG['paper_ext']}")
+  if File.exist?(filename)
+    abort("rake aborted!") if ask("#{filename} already exists. Do you want to overwrite?", ['y', 'n']) == 'n'
+  end
+  
+  puts "Creating new paper entry: #{filename}"
+  open(filename, 'w') do |paper|
+    paper.puts "---"
+    paper.puts "layout: paper"
+    paper.puts "title: \"#{title.gsub(/-/,' ')}\""
+    paper.puts 'year: ""'
+    paper.puts 'ref: ""'
+    paper.puts 'journal: ""'
+    paper.puts 'authors: ""'
+    paper.puts 'image: /assets/images/papers/default-paper.png'
+    paper.puts 'pdf: '
+    paper.puts 'doi: ""'
+    paper.puts "category: paper" # #{category}"
+    paper.puts "tags: #{tags}"
+    paper.puts "---"
+    paper.puts "{% include JB/setup %}"
+  end
+end # task :paper
+
+
+# Usage: rake protocol title="Protocol Title" [date="2015-05-01"] [tags=[tag1,tag2]]
+desc "Begin a new protocol in #{CONFIG['protocols']}"
+task :protocol do
+  abort("rake aborted: '#{CONFIG['protocols']}' directory not found.") unless FileTest.directory?(CONFIG['protocols'])
+  title = ENV["title"] || "new-protocol"
+  tags = ENV["tags"] || "[]"
+  category = ENV["category"] || ""
+  category = "\"#{category.gsub(/-/,' ')}\"" if !category.empty?
+  slug = title.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
+  begin
+    date = (ENV['date'] ? Time.parse(ENV['date']) : Time.now).strftime('%Y-%m-%d')
+  rescue => e
+    puts "Error - date format must be YYYY-MM-DD, please check you typed it correctly!"
+    exit -1
+  end
+  filename = File.join(CONFIG['protocols'], "#{date}-#{slug}.#{CONFIG['protocol_ext']}")
+  if File.exist?(filename)
+    abort("rake aborted!") if ask("#{filename} already exists. Do you want to overwrite?", ['y', 'n']) == 'n'
+  end
+  
+  puts "Creating new protocol: #{filename}"
+  open(filename, 'w') do |post|
+    post.puts "---"
+    post.puts "layout: protocol"
+    post.puts "title: \"#{title.gsub(/-/,' ')}\""
+    post.puts 'description: ""'
+    post.puts "category: protocol"
+    post.puts "tags: #{tags}"
+    post.puts "---"
+    post.puts "{% include JB/setup %}"
+  end
+end # task :protocol
+
 # Usage: rake page name="about.html"
 # You can also specify a sub-directory path.
-# If you don't specify a file extention we create an index.html at the path specified
+# If you don't specify a file extension we create an index.html at the path specified
 desc "Create a new page."
 task :page do
   name = ENV["name"] || "new-page.md"
@@ -100,11 +185,16 @@ end # task :page
 
 desc "Launch preview environment"
 task :preview do
-  system "jekyll serve -w"
+  system "bundle exec jekyll serve -w"
 end # task :preview
 
 # Public: Alias - Maintains backwards compatability for theme switching.
 task :switch_theme => "theme:switch"
+
+# DAD: would like to be able to refresh theme.
+# Presently requires 'rake theme:switch name="lab"' to update current theme.
+# Barrier is code to discover the current theme.
+#task :refresh_theme => "theme:switch"
 
 namespace :theme do
   
@@ -118,7 +208,7 @@ namespace :theme do
   #   rake theme:switch name="the-program"
   #
   # Returns Success/failure messages.
-  desc "Switch between Jekyll-bootstrap themes."
+  desc "Switch between Jekyll-Bootstrap themes."
   task :switch do
     theme_name = ENV["name"].to_s
     theme_path = File.join(CONFIG['themes'], theme_name)
@@ -144,7 +234,7 @@ namespace :theme do
     end
     
     puts "=> Theme successfully switched!"
-    puts "=> Reload your web-page to check it out =)"
+    puts "=> Reload your page to check it out"
   end # task :switch
   
   # Public: Install a theme using the theme packager.

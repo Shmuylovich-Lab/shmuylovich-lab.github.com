@@ -1,76 +1,98 @@
-# Jekyll-Bootstrap
+# The Drummond Lab main website
 
-The quickest way to start and publish your Jekyll powered blog. 100% compatible with GitHub pages
+Our website, http://drummondlab.org, is a [GitHub Pages](https://pages.github.com/) site built with [Jekyll](https://jekyllrb.com/) and [Bootstrap](http://getboostrap.com), originally pulled from [Trevor Bedford's site](http://bedford.io) and heavily modified.
 
-## Usage
+# Editing the site
 
-For all usage and documentation please see: <http://jekyllbootstrap.com>
+Here's a step-by-step guide to making modifications to the site, focused initially on adding typical content. You'll need a working Unix-like environment and working knowledge of Git, [Markdown](https://daringfireball.net/projects/markdown/syntax), HTML, and Unix commands. You'll need a working Ruby installation, with gems for Jekyll, GitHub Pages, and their dependencies installed. For now, if you need help getting set up, ask someone who's already up and running.
 
-## Version
+## Clone the repository
 
-0.3.0 - stable and versioned using [semantic versioning](http://semver.org/).
+If you're a member of the [Drummond Lab team](https://github.com/orgs/drummondlab/teams/drummond-lab-team), you have access to the website repository.
 
-**NOTE:** 0.3.0 introduces a new theme which is not backwards compatible in the sense it won't _look_ like the old version.
-However, the actual API has not changed at all.
-You might want to run 0.3.0 in a branch to make sure you are ok with the theme design changes.
+To clone the repository, making a local copy on your machine:
 
-## Milestones
+	git clone git@github.com:drummondlab/drummondlab.github.io
 
-[0.4.0](https://github.com/plusjade/jekyll-bootstrap/milestones/v%200.4.0) - next release [ETA 03/29/2015]
+Enter your local repository and check out the `staging` branch, where you'll make changes before promoting them to the `master` branch and publishing them:
 
-### GOALS
+	cd drummondlab.github.io
+	git checkout staging
 
-* No open PRs against master branch.
-* Squash some bugs.
-* Add some new features (low-hanging fruit).
-* Establish social media presence.
+## Overview of the structure
 
+Let's assume you're familiar with HTML pages. A site is a collection of HTML pages. For our site (and many others), there are page types, like a paper page, or a lab member page, which are the same in design but different in content. In the web-accessible site, these are indeed different pages. However, as you might hope, they are _generated_ from a single template file filled in with information from many paper- or member-specific data files. This generation is done every time the site changes; it's handled by GitHub Pages, the service we use.
 
-### Bugs
+The template files are weird-looking HTML files residing in the `_includes/themes/lab` folder.
 
-|Bug |Description
-|------|---------------
-|[#86](https://github.com/plusjade/jekyll-bootstrap/issues/86)  |&#x2611; Facebook Comments
-|[#113](https://github.com/plusjade/jekyll-bootstrap/issues/113)|&#x2611; ASSET_PATH w/ page & post
-|[#144](https://github.com/plusjade/jekyll-bootstrap/issues/144)|&#x2610; BASE_PATH w/ FQDN
-|[#227](https://github.com/plusjade/jekyll-bootstrap/issues/227)|&#x2611; Redundant JB/setup
+## How to add content
 
-### Features
+For most common actions---adding a lab member, paper, protocol, or news item---you'll be making a new Markdown file in the proper location, naming it properly, and filling in the required fields. In almost all cases, you can (and should!) copy an existing item, change the name, and change its content, rather than trying to write a Markdown document from scratch.
 
-|Bug |Description
-|------|---------------
-|[#98](https://github.com/plusjade/jekyll-bootstrap/issues/98)  |&#x2611; GIST Integration
-|[#244](https://github.com/plusjade/jekyll-bootstrap/issues/244)|&#x2611; JB/file_exists Helper
-|[#42](https://github.com/plusjade/jekyll-bootstrap/issues/42)  |&#x2611; Sort collections of Pages / Posts
-|[#84](https://github.com/plusjade/jekyll-bootstrap/issues/84)  |&#x2610; Detecting production mode
+For example, suppose you want to add a news item, which will appear on the front page, announcing that you have created a yeast strain capable of secreting high-quality chardonnay. Go into the `news/_posts` folder. Copy one of the existing items into a new file named with today's date (it matters!) and a brief title:
 
-### TODOS
+	cp 2017-12-15-allan-tenure.md 2020-01-31-wine-yeast.md
 
-Review existing pull requests against plusjake/jekyll-bootstrap:master. Merge or close each.
+The date is used by the generator; it's inelegant and perhaps there's a way to do it differently, but that's how it is for now. Now edit the new file to make the content what you want. Just open it in your favorite editor and type away. By the time you're done, hopefully you have something like this:
 
-* Create twitter account. Add link / icon on jekyllbootstrap.com.
-* Create blog posts under plusjade/gh-pages, expose on jekyllbootstrap.com, feed to twitter account.
-* Announce state of project, announce roadmap(s), announce new versions as they’re released.
+	---
+	layout: news
+	title: "New yeast strain makes chardonnay"
+	author: "X. Obsequious Trenchant"
+	author_handle: "xot"
+	image: /assets/images/news/default-news.png
+	category: news
+	tags: [breakthrough]
+	---
+	Today we are thrilled to announce a new strain of yeast that secretes beautifully oaked chardonnay. See more details in our [preprint](http://biorxiv.org/content/10.1101/0000000)!
 
-## Contributing
+Now add it to the repository:
 
+	git add 2020-01-31-wine-yeast.md
 
-To contribute to the framework please make sure to checkout your branch based on `jb-development`!!
-This is very important as it allows me to accept your pull request without having to publish a public version release.
+And, when you're happy with it, commit and push:
 
-Small, atomic Features, bugs, etc.
-Use the `jb-development` branch but note it will likely change fast as pull requests are accepted.
-Please rebase as often as possible when working.
-Work on small, atomic features/bugs to avoid upstream commits affecting/breaking your development work.
+	git commit -m "announcing new yeast strain"
+	git push
 
-For Big Features or major API extensions/edits:
-This is the one case where I'll accept pull-requests based off the master branch.
-This allows you to work in isolation but it means I'll have to manually merge your work into the next public release.
-Translation : it might take a bit longer so please be patient! (but sincerely thank you).
+This new announcement won't yet be public. The next section shows you how to do that.
 
-**Jekyll-Bootstrap Documentation Website.**
+The same basic process is used to add protocols, team members, etc.
 
-The documentation website at <http://jekyllbootstrap.com> is maintained at https://github.com/plusjade/jekyllbootstrap.com
+## Updating the public site
+
+All edits should be made on the `staging` branch. When you start work, make sure you're on the staging branch:
+
+	git checkout staging
+
+Once your edits are done, preview the site. Generate the pages and start the private webserver:
+
+	rake preview
+
+...and then open the local test site, http://127.0.0.1:4000. Look at anything you've changed and make sure it's good to go.
+
+Then move the changes to the `master` branch:
+
+	git checkout master
+	git merge staging
+
+and push to GitHub:
+
+	git push
+
+Changes won't be immediate, so wait a minute or two while GitHub's servers regenerate the site and publish it. Check to make sure the public site http://drummondlab.org looks the way you intend.
+
+Finally, check out `staging` again so that you don't accidentally start working on the `master` branch the next time you sit down:
+
+	git checkout staging
+
+## Changing look and feel
+
+Fonts, colors, spacing, and similar stylings are separate from the template pages. Like most sites, we use Cascading Style Sheets (CSS), 
+
+### To-dos
+
+See Issues on [the site](https://github.com/drummondlab/drummondlab.github.io).
 
 
 ## License
