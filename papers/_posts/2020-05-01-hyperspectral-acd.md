@@ -9,7 +9,7 @@ volume: 13
 issue: 9
 pages: 
 authors: Du T, Mishra DK, Shmuylovich L, Yu A, Hurbon H, Wang ST, Berezin MY
-image: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7549435/bin/nihms-1634363-f0006.jpg
+image: /assets/images/papers/2020-swir-acd.jpg
 pdf: 
 pdflink: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7549435/pdf/nihms-1634363.pdf
 github: 

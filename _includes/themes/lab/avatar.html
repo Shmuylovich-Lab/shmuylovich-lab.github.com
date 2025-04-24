@@ -1,0 +1,18 @@
+{% comment %}Parameters:
+   member  – a hash from team.yml (must contain `name`)
+   size    – optional (px). Default 72.
+{% endcomment %}
+{% assign sz = include.size | default: 72 %}
+{% assign photo = include.member.photo %}
+{% if photo and photo != "" %}
+  <img src="{{ photo | relative_url }}"
+       alt="{{ include.member.name }} profile photo"
+       class="avatar rounded-circle"
+       style="width:{{sz}}px;height:{{sz}}px;">
+{% else %}
+  <div class="avatar avatar--placeholder rounded-circle d-inline-flex
+              justify-content-center align-items-center fw-bold text-white"
+       style="width:{{sz}}px;height:{{sz}}px;"
+       data-name="{{ include.member.name | escape }}">
+  </div>
+{% endif %}

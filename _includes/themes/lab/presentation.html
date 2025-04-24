@@ -1,0 +1,104 @@
+<!-- 
+Branched from Trevor Bedford's source, https://github.com/blab/blotter/blob/master/_layouts/paper.html
+with gratitude.
+-->
+
+<div class="bigspacer"></div>
+
+<div class="row">
+	<div class="col-md-3">
+		<div class="media">
+			{% if page.image %}
+			<img class="pull-left pad-right media-object paper-image" src="{{ page.image }}">
+			{% endif %}
+		</div>
+	</div>
+
+	<div class="col-md-9">
+		<div class="media-body titlebox">
+			<div class="title media-heading">
+				
+				
+				{{ page.title }}
+				
+			</div>
+			<p>
+			<div class="smallhead">
+				{{ page.authors }} 				
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="bigspacer"></div>
+
+<div class="row">
+	<div class="col-md-3">
+		<div class="bigspacer"></div>
+		<div class="glyphbox note"> <!-- DAD: what is this class? -->
+			
+			
+			<div class="smallhead subtle">
+				Conference
+			</div>
+			<div class="pad-left note">
+				<div class="smallspacer"></div>
+				<span class="journal"> {{page.conference}}<span>
+				<div class="smallspacer"></div>
+				{{page.subconference}}
+				<div class="smallspacer"></div>
+				{{page.datestring}}
+			</div>
+			<div class="bigspacer"></div>			
+			
+						
+			{% if page.doi %}
+			<div class="smallhead subtle">
+				DOI
+			</div>
+			<div class="pad-left note">
+				<div class="smallspacer"></div>
+				<i class="fa fa-external-link fa-fw"></i>
+				<a class="off" href="http://dx.doi.org/{{ page.doi }}">{{ page.doi }}</a>
+			</div>
+			<div class="bigspacer"></div>			
+			{% endif %}
+			
+			
+			<div class="smallhead subtle">
+				Share
+			</div>
+		    <!-- Paste the 3 next lines where you want the sharing button(s) to appear -->
+		    <div class="post-sharing">
+		     {% include JB/sharing %}
+		    </div>
+
+		</div>
+	</div>
+	<div class="col-md-8">	
+		<div class="post">
+			{{ content }}
+		</div>
+    {% if page.video_id %}
+    <div class="bigspacer"></div>	
+    <h3 class="bigspacer">Presentation Video</h3>
+    <!-- Responsive video with adequate height -->
+    <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;margin-bottom:2rem;">
+      <iframe src="https://play.cadmore.media/Player/{{ page.video_id }}?userstatus=0"
+              style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"
+              allow="encrypted-media;autoplay;fullscreen" allowfullscreen frameborder="0"></iframe>
+    </div>
+    {% endif %}
+
+    {% if page.citation %}
+    <h3 class="bigspacer">Citation</h3>
+    <div class = "post">
+    	{{page.citation}}
+    </div>
+    {% endif %}
+	</div>
+	<div class="col-md-1"></div>
+</div>
+
+<div class="bigspacer"></div>
+

@@ -110,7 +110,48 @@
 					{% endif %}
 				{% endif %}
 			{% endfor %}
-		{% endif %}		
+		{% endif %}	
+
+
+		{% assign lastname = member.title | split: ' ' | last %}
+
+
+		{% for presentation in site.categories.presentations %}
+			{% assign author_list = presentation.authors | split: ", " %}
+			{% for author in author_list %}
+			  {% if author contains " " %}
+			    {% assign author_last = author | split: " " | last %}
+			  {% else %}
+			    {% assign author_last = author %}
+			  {% endif %}
+			  {% if author_last == lastname %}
+				{% assign presentationsq = true %}
+			{% endif %}
+			{% endfor %}		
+		{% endfor %}
+
+		{% if presentationsq == true %}
+			<div class="bigspacer"></div>
+			<div class="head">Presentations</div>
+			<div class="spacer"></div>
+			{% for presentation in site.categories.presentations %}
+
+				{% assign author_list = presentation.authors | split: ", " %}
+				{% for author in author_list %}
+				  {% if author contains " " %}
+				    {% assign author_last = author | split: " " | last %}
+				  {% else %}
+				    {% assign author_last = author %}
+				  {% endif %}
+				  {% if author_last == lastname %}
+				    <p><a href="{{ presentation.url }}" class="off">{{ presentation.title }}</a></p>
+				  {% endif %}
+				{% endfor %}
+
+			{% endfor %}
+		{% endif %}	
+
+
 		
 		{% for post in site.categories.blog %}
 			{% if member.handle == post.author_handle %}
