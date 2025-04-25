@@ -7,7 +7,7 @@ handle: leoshmu
 email: shmuylol@wustl.edu
 twitter: leoshmu
 github: leoshmu
-scholar: -yDro5ZYAAAAJ&hl
+scholar: yDro5ZYAAAAJ&hl=en
 image: /assets/images/team/leo-shmuylovich.jpeg
 cv: 
 alum: false

@@ -7,7 +7,7 @@ handle: anmol
 email: anmol@wustl.edu
 twitter: 
 github: anmolbyte
-scholar: EstF9L8AAAAJ
+scholar: 
 image: /assets/images/team/anmol-jarang.jpg
 cv: 
 alum: false
