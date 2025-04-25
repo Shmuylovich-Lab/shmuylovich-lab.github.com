@@ -7,7 +7,9 @@ handle:
 email: a.shafiullah@wustl.edu
 twitter: 
 github: 
-scholar: 
+orcid:	
+researchgate: Ahmad-Shafiullah-2
+scholar: 5T98BQ4AAAAJ&hl=en&oi=ao
 image: /assets/images/team/ahmad-shafiullah.jpeg
 cv: 
 alum: false

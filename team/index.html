@@ -30,10 +30,17 @@ If you are interested in developing infrared and thermal imaging tools, or just 
 				<div class="head media-heading member-name"><a href="{{ member.url }}" class="off">{{ member.title }}</a></div>
 				<p class="note">{{ member.position }}</p>
 				{% if member.scholar %} <!-- opening of a new row -->
-
 				<p class="note"><a href="https://scholar.google.com/citations?user={{ member.scholar }}">Google Scholar</a></p>
+				{% endif %}
+				
+				{% if member.orcid %} <!-- opening of a new row -->
+				<p class="note"><a href="https://orcid.org/{{ member.scholar }}">ORCID</a></p>
 					{% endif %}
+				
 
+				{% if member.researchgate %} <!-- opening of a new row -->
+				<p class="note"><a href="https://www.researchgate.net/profile/{{ member.researchgate }}">Research Gate</a></p>
+					{% endif %}
 				</div>
 		</div>
     </div>	  

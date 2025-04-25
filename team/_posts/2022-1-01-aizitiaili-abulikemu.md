@@ -8,6 +8,8 @@ email: kashgari@wustl.edu
 twitter: 
 github: 
 scholar: EstF9L8AAAAJ
+orcid: 0000-0003-1457-7313
+researchgate: Aizitiaili-Abulikemu
 image: /assets/images/team/aizitiaili-abulikemu.jpeg
 cv: 
 alum: false
