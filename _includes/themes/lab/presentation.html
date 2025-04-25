@@ -82,6 +82,7 @@ with gratitude.
     {% if page.video_id %}
     <div class="bigspacer"></div>	
     <h3 class="bigspacer">Presentation Video</h3>
+    <span class="bigspacer">If not loading, go to <a class="off" href="http://dx.doi.org/{{ page.doi }}">{{ page.doi }}</a> directly to view</span>
     <!-- Responsive video with adequate height -->
     <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;margin-bottom:2rem;">
       <iframe src="https://play.cadmore.media/Player/{{ page.video_id }}?userstatus=0"

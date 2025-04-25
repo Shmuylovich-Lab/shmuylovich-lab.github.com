@@ -11,7 +11,7 @@ subconference: "Design and Quality for Biomedical Technologies XVII"
 conf_journal: "Proc. SPIE PC12833"
 article_code: PC128330B
 citation: "Derek Bashe, Michael Butler, Anmol Jarang, Quinlan McGrath, Mohammed Shahriar Arefin, Chetan A. Patil, Christine M. O’Brien, and Leonid Shmuylovich, “Pulsatile 3D-printed multilayer optical phantoms with microchannels for testing pulse oximeters (Conference Presentation),” Proc. SPIE PC12833, Design and Quality for Biomedical Technologies XVII, PC128330B (13 March 2024); https://doi.org/10.1117/12.3002150"
-video_id: ed7dd00f-f325-ee11-a999-00505691c5e1
+video_id: ed7dd00f-f325-ee11-a999-00505691c5e1 
 authors: "Derek Bashe, Michael Butler, Anmol Jarang, Quinlan McGrath, Aizitiaili Abulikemu Kashgari, Mohammed Shahriar Arefin, Chetan A. Patil, Christine M. O’Brien, Leonid Shmuylovich"
 doi: 10.1117/12.3002150
 category: presentation
